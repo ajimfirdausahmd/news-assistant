@@ -11,3 +11,4 @@ langgraph
 tavily-python
 python-dotenv
 requests
+streamlit
