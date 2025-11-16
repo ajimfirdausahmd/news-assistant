@@ -78,6 +78,8 @@ This will create:
 - data/vectorstore/index.faiss
 - data/vectorstore/news_metadata.json
 
+---
+
 ## 3. Running the Application
 
 Option 1 – Streamlit UI (recommended)
@@ -95,6 +97,8 @@ This will:
 - Call the LangGraph with several sample questions
 - Show which route was used (`rag`,`stats`,`web_search`)
 - Print the answers to the console
+
+---
 
 ## 4. Key Components
 
@@ -118,6 +122,8 @@ Calls Tavily, then passes results to the LLM for summarisation.
 
 - `app/streamlit_app.py`
 User-facing chat interface.
+
+---
 
 ## 5. Limitations / Future Work
 
