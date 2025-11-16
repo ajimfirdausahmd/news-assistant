@@ -47,10 +47,10 @@ The app uses:
 
 ### 2.1 Prerequisites
 
--Python 3.12+
--pip
--An OpenAI API key
--A Tavily API key
+- Python 3.12+
+- pip
+- An OpenAI API key
+- A Tavily API key
 
 ### 2.2 Create and activate virtual environment
 
@@ -75,8 +75,8 @@ Create a .env file in the project root:
 
 
 This will create:
--data/vectorstore/index.faiss
--data/vectorstore/news_metadata.json
+- data/vectorstore/index.faiss
+- data/vectorstore/news_metadata.json
 
 ## 3. Running the Application
 
@@ -92,42 +92,42 @@ Option 2 – CLI sanity test
 
 
 This will:
--Call the LangGraph with several sample questions
--Show which route was used (`rag`,`stats`,`web_search`)
--Print the answers to the console
+- Call the LangGraph with several sample questions
+- Show which route was used (`rag`,`stats`,`web_search`)
+- Print the answers to the console
 
 ## 4. Key Components
 
--`src/models/llm_client.py`
+-  `src/models/llm_client.py`
 Wraps the OpenAI chat model used by router, generator, and web search summarisation.
 
--`src/rag/build_index.py`
+- `src/rag/build_index.py`
 Loads news.csv, builds documents, and creates a FAISS index + metadata.
 
--`src/rag/retriever.py`
+- `src/rag/retriever.py`
 Provides retrieve_top_k(query, k) to search the FAISS index.
 
--`src/graph/nodes/router_node.py`
+- `src/graph/nodes/router_node.py`
 Uses LLM to route each question to rag, stats, or web_search.
 
--`src/graph/nodes/stats_node.py`
+- `src/graph/nodes/stats_node.py`
 Uses pandas to compute sentiment counts and date-based stats.
 
--`src/graph/nodes/websearch_node.py`
+- `src/graph/nodes/websearch_node.py`
 Calls Tavily, then passes results to the LLM for summarisation.
 
--`app/streamlit_app.py`
+- `app/streamlit_app.py`
 User-facing chat interface.
 
 ## 5. Limitations / Future Work
 
 Stats node currently supports:
 
--Sentiment counts
--A simple date filter (“before June 2025”)
+- Sentiment counts
+- A simple date filter (“before June 2025”)
 
 Could be extended with:
 
--More flexible date queries
--Filtering by author, source, or sentiment via natural language
--Per-article citation display in the UI
+- More flexible date queries
+- Filtering by author, source, or sentiment via natural language
+- Per-article citation display in the UI
