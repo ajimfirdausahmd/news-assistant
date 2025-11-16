@@ -122,10 +122,12 @@ User-facing chat interface.
 ## 5. Limitations / Future Work
 
 Stats node currently supports:
+
 -Sentiment counts
 -A simple date filter (“before June 2025”)
 
 Could be extended with:
+
 -More flexible date queries
 -Filtering by author, source, or sentiment via natural language
 -Per-article citation display in the UI
