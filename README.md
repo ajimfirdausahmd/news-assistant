@@ -40,3 +40,92 @@ The app uses:
 - 💬 **Streamlit chat UI**  
   - Simple chat interface.
   - Shows assistant messages and which route was used.
+
+---
+
+## 2. Setup Instructions
+
+### 2.1 Prerequisites
+
+-Python 3.12+
+-pip
+-An OpenAI API key
+-A Tavily API key
+
+### 2.2 Create and activate virtual environment
+
+    python -m venv venv
+    venv\Scripts\activate   
+
+### 2.3 Install dependencies
+
+    pip install -r requirements.txt
+
+### 2.4 Environment variables
+
+Create a .env file in the project root:
+
+    OPENAI_API_KEY=your_openai_key_here
+    TAVILY_API_KEY=your_tavily_key_here
+
+### 2.5 Build the vector store (RAG index)
+
+
+    python -m src.rag.build_index
+
+
+This will create:
+-data/vectorstore/index.faiss
+-data/vectorstore/news_metadata.json
+
+## 3. Running the Application
+
+Option 1 – Streamlit UI (recommended)
+
+    streamlit run app/streamlit_app.py
+
+Then open the displayed URL (e.g. http://localhost:8501).
+
+Option 2 – CLI sanity test
+
+    python test_graph.py
+
+
+This will:
+-Call the LangGraph with several sample questions
+-Show which route was used (`rag`,`stats`,`web_search`)
+-Print the answers to the console
+
+## 4. Key Components
+
+-`src/models/llm_client.py`
+Wraps the OpenAI chat model used by router, generator, and web search summarisation.
+
+-`src/rag/build_index.py`
+Loads news.csv, builds documents, and creates a FAISS index + metadata.
+
+-`src/rag/retriever.py`
+Provides retrieve_top_k(query, k) to search the FAISS index.
+
+-`src/graph/nodes/router_node.py`
+Uses LLM to route each question to rag, stats, or web_search.
+
+-`src/graph/nodes/stats_node.py`
+Uses pandas to compute sentiment counts and date-based stats.
+
+-`src/graph/nodes/websearch_node.py`
+Calls Tavily, then passes results to the LLM for summarisation.
+
+-`app/streamlit_app.py`
+User-facing chat interface.
+
+## 5. Limitations / Future Work
+
+-Stats node currently supports:
+  -Sentiment counts
+  -A simple date filter (“before June 2025”)
+
+-Could be extended with:
+ -More flexible date queries
+ -Filtering by author, source, or sentiment via natural language
+ -Per-article citation display in the UI
