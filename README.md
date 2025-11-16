@@ -100,7 +100,54 @@ This will:
 
 ---
 
-## 4. Key Components
+## 4. Project Structure
+
+    news-assistant/
+    ├── app/
+    │   └── streamlit_app.py               # Streamlit frontend
+    │
+    ├── src/
+    │   ├── data/
+    │   │   └── news.csv                   # Raw dataset
+    │   │
+    │   ├── models/
+    │   │   ├── llm_client.py              # OpenAI/Gemini model wrapper
+    │   │   └── embeddings_client.py       # Embedding model wrapper
+    │   │
+    │   ├── rag/
+    │   │   ├── loader.py
+    │   │   ├── build_index.py
+    │   │   ├── retriever.py
+    │   │   ├── embedder.py
+    │   │   └── indexer.py
+    │   │
+    │   ├── tools/
+    │   │   └── tavily_client.py          # Web search API wrapper
+    │   │
+    │   ├── graph/
+    │   │   ├── state.py                  # Graph state definition
+    │   │   ├── graph_builder.py          # LangGraph wiring
+    │   │   └── nodes/
+    │   │       ├── router_node.py
+    │   │       ├── retrieve_node.py
+    │   │       ├── generate_node.py
+    │   │       ├── stats_node.py
+    │   │       └── websearch_node.py
+    │
+    ├── data/
+    │   └── vectorstore/
+    │       ├── index.faiss
+    │       └── news_metadata.json
+    │
+    ├── tests/
+    │   └── test_graph.py                 # Script to validate your graph pipeline
+    │
+    ├── requirements.txt
+    ├── .env.example                      # Sample env file (no real keys)
+    └── README.md
+
+
+## 5. Key Components
 
 -  `src/models/llm_client.py`
 Wraps the OpenAI chat model used by router, generator, and web search summarisation.
@@ -125,7 +172,7 @@ User-facing chat interface.
 
 ---
 
-## 5. Limitations / Future Work
+## 6. Limitations / Future Work
 
 Stats node currently supports:
 
