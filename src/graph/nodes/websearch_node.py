@@ -53,7 +53,6 @@ def websearch_node(state: Dict[str, Any]) -> Dict[str, Any]:
     response = chain.invoke({"question": question, "context": context})
     body = getattr(response, "content", str(response))
 
-    # Explicitly mark this as web search + list sources
     final_answer = (
         "(Web search result)\n\n"
         f"{body.strip()}\n\n"

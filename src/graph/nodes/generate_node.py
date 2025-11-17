@@ -51,7 +51,6 @@ def generate_node(state: Dict[str, Any]) -> Dict[str, Any]:
     response = chain.invoke({"question": question, "context": context})
     body = getattr(response, "content", str(response)).strip()
 
-    # If model says not found, don't append sources
     if body == "Not found in internal dataset.":
         final_answer = body
     else:
