@@ -185,6 +185,8 @@ Could be extended with:
 - Filtering by author, source, or sentiment via natural language
 - Per-article citation display in the UI
 
+---
+
 ## 7. Evaluation & improvement section
 
 Evaluate:
