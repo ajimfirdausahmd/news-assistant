@@ -2,8 +2,9 @@ from typing import Dict, Any
 import os
 import pandas as pd
 
-CSV_PATH = "data/news.csv"
-
+HERE = os.path.dirname(__file__)
+BASE_DIR = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
+CSV_PATH = os.path.join(BASE_DIR, "data", "news.csv")
 
 def _load_df() -> pd.DataFrame:
     print(f"[stats] Loading CSV from: {os.path.abspath(CSV_PATH)}")

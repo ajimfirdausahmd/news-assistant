@@ -184,3 +184,16 @@ Could be extended with:
 - More flexible date queries
 - Filtering by author, source, or sentiment via natural language
 - Per-article citation display in the UI
+
+## 7. Evaluation & improvement section
+
+Evaluate:
+- Manual checklist with the 3–4 test questions.
+- LLM-as-judge for factual accuracy given context.
+- Retrieval metrics: proportion of queries where at least one gold article is in top-k.
+
+Improve:
+- Better chunking + titles in embeddings.
+- Add reranking (e.g. cross-encoder or similarity re-rank).
+- Add retrieval grader (LLM filter) for irrelevant docs.
+- Cache web search + answers for popular queries.

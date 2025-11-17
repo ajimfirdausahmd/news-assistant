@@ -5,6 +5,7 @@ from src.models.llm_client import get_llm
 
 llm = get_llm()
 
+
 def websearch_node(state: Dict[str, Any]) -> Dict[str, Any]:
     question = state.get("question", "").strip()
     if not question:
@@ -18,21 +19,28 @@ def websearch_node(state: Dict[str, Any]) -> Dict[str, Any]:
         return state
 
     snippets = []
+    source_lines = []
     for r in results[:5]:
-        title = r.get("title", "")
-        url = r.get("url", "")
+        title = r.get("title", "") or "Untitled"
+        url = r.get("url", "") or ""
         content = (r.get("content") or "")[:900]
-        snippets.append(f"Title: {title}\nURL: {url}\nContent:\n{content}")
+        source = r.get("source") or ""
+
+        snippets.append(
+            f"Title: {title}\nSource: {source}\nURL: {url}\nContent:\n{content}"
+        )
+        source_lines.append(f"- {title} ({source}) — {url}")
 
     context = "\n\n---\n\n".join(snippets)
+    sources_block = "\n".join(source_lines)
 
     prompt = ChatPromptTemplate.from_messages(
         [
             (
                 "system",
-                "You are an assistant summarising up-to-date web news. "
+                "You are an assistant summarising up-to-date WEB SEARCH results. "
                 "Use ONLY the web snippets provided. "
-                "Mention key points clearly and briefly.",
+                "Answer clearly and concisely.",
             ),
             (
                 "human",
@@ -43,5 +51,15 @@ def websearch_node(state: Dict[str, Any]) -> Dict[str, Any]:
 
     chain = prompt | llm
     response = chain.invoke({"question": question, "context": context})
-    state["answer"] = getattr(response, "content", str(response))
+    body = getattr(response, "content", str(response))
+
+    # Explicitly mark this as web search + list sources
+    final_answer = (
+        "(Web search result)\n\n"
+        f"{body.strip()}\n\n"
+        "Sources (web):\n"
+        f"{sources_block}"
+    )
+
+    state["answer"] = final_answer
     return state
