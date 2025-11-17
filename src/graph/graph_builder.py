@@ -30,14 +30,9 @@ def build_graph():
         },
     )
 
-    # RAG path
     graph.add_edge("retrieve", "generate")
     graph.add_edge("generate", END)
-
-    # Stats path ends here
     graph.add_edge("stats", END)
-
-    # Web search path ends here (websearch_node must set state["answer"])
     graph.add_edge("web_search", END)
 
     return graph.compile()

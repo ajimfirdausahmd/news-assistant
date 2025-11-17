@@ -28,5 +28,5 @@ if __name__ == "__main__":
     # Test Malay
     test_query("Adakah SSM terlibat dengan kes mahkamah?")
 
-    # Test Web Search (if router decides so)
+    # Test Web Search
     test_query("What is the status of the Malaysian economy in 2025?")

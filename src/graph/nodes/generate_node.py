@@ -21,7 +21,7 @@ def generate_node(state: Dict[str, Any]) -> Dict[str, Any]:
         source = meta.get("author") or meta.get("source") or "Unknown source"
         text = d.get("text", "")
 
-        snippet = text[:1000]  # avoid super long context
+        snippet = text[:1000]
         context_parts.append(
             f"Title: {title}\nSource: {source}\nContent:\n{snippet}"
         )

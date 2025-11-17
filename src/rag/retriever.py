@@ -6,7 +6,6 @@ from typing import List, Dict, Any
 
 from src.models.embeddings_client import embed_query
 
-# Resolve paths relative to the project root
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 INDEX_PATH = os.path.join(BASE_DIR, "data", "vector_store", "news.index")
 META_PATH = os.path.join(BASE_DIR, "data", "vector_store", "news_metadata.json")
@@ -35,14 +34,11 @@ def retrieve_top_k(query: str, k: int = 4) -> List[Dict[str, Any]]:
         "score": float
     }
     """
-    # Load index + metadata
     index = load_faiss_index()
     metadata = load_metadata()
 
-    # Embed query
     q_emb = np.array(embed_query(query)).astype("float32").reshape(1, -1)
 
-    # Search
     scores, idxs = index.search(q_emb, k)
 
     results: List[Dict[str, Any]] = []
