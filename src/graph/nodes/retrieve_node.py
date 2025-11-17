@@ -9,6 +9,5 @@ def retrieve_node(state: Dict[str, Any]) -> Dict[str, Any]:
 
     docs = retrieve_top_k(question, k=4)
 
-    # docs is a list of dicts: {"text": ..., "metadata": {...}, "score": ...}
     state["rag_docs"] = docs
     return state

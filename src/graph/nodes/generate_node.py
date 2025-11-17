@@ -2,7 +2,7 @@ from typing import Dict, Any, List
 from langchain_core.prompts import ChatPromptTemplate
 from src.models.llm_client import get_llm
 
-llm = get_llm()  # Uses your OpenAI client now
+llm = get_llm() 
 
 def generate_node(state: Dict[str, Any]) -> Dict[str, Any]:
     question = state.get("question", "")
@@ -47,6 +47,5 @@ def generate_node(state: Dict[str, Any]) -> Dict[str, Any]:
     chain = prompt | llm
     response = chain.invoke({"question": question, "context": context})
 
-    # ChatOpenAI -> AIMessage with .content
     state["answer"] = getattr(response, "content", str(response))
     return state

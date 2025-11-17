@@ -2,7 +2,6 @@ from typing import Dict, Any
 from langchain_core.prompts import ChatPromptTemplate
 from src.models.llm_client import get_llm
 
-# LLM used only for routing
 router_llm = get_llm(model_name="gpt-4o-mini", temperature=0.0)
 
 ROUTE_OPTIONS = ["rag", "stats", "web_search"]
